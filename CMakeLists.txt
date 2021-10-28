@@ -10,7 +10,7 @@ file(GLOB LIB_SOURCES
 )
 
 include_directories("./include/")
-include_directories("./tests/")
+include_directories("./tests/include/")
 add_library(MyLibrary ${LIB_SOURCES})
 
 include(ExternalProject)
@@ -21,7 +21,7 @@ ExternalProject_Add(gtest
 )
 ExternalProject_Get_Property(gtest source_dir binary_dir)
 
-add_executable(run_test ./tests/test_src.cpp)
+add_executable(run_test ./tests/test_main.cpp)
 
 add_dependencies(run_test gtest)
 include_directories(${source_dir}/googletest/include)
