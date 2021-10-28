@@ -5,13 +5,21 @@ set (CMAKE_CXX_STANDARD 11)
 project (run_test)
 
 file(GLOB LIB_SOURCES
-    ./include/*.hpp
-    ./src/*.cpp
+  ./include/*.hpp
+  ./src/*.cpp
+)
+
+file(GLOB TEST_SOURCES
+  ./include/*.hpp
+  ./src/*.cpp
+  ./tests/include/*.hpp
+  ./tests/src/*.cpp
 )
 
 include_directories("./include/")
 include_directories("./tests/include/")
 add_library(MyLibrary ${LIB_SOURCES})
+add_library(MyTestLibrary ${TEST_SOURCES})
 
 include(ExternalProject)
 ExternalProject_Add(gtest
@@ -28,6 +36,7 @@ include_directories(${source_dir}/googletest/include)
 target_link_libraries(run_test ${binary_dir}/lib/libgtest.a)
 target_link_libraries(run_test ${binary_dir}/lib/libgtest_main.a)
 target_link_libraries(run_test MyLibrary)
+target_link_libraries(run_test MyTestLibrary)
     
 enable_testing()
 add_test(NAME    run_test 
